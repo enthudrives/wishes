@@ -1,6 +1,6 @@
 require "spec_helper_lite"
-require_relative "../../../app/models/user"
-require_relative "../../../app/models/wish"
+require_relative "#{ROOT}/app/models/user"
+require_relative "#{ROOT}/app/models/wish"
 
 describe User do
   before(:each) do

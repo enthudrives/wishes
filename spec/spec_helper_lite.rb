@@ -1,5 +1,5 @@
-RSPEC_DIR = File.join(File.expand_path(File.dirname(__FILE__)), "spec")
-Dir["#{RSPEC_DIR}/support/**/*.rb"].each {|f| require f}
+ROOT = File.expand_path("../", File.dirname(__FILE__))
+Dir["#{ROOT}/spec/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
