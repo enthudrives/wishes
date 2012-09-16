@@ -1,10 +1,8 @@
-source 'https://rubygems.org'
+source :rubygems
 
-gem 'rails', '3.2.8'
-
-gem 'pg'
-gem 'jquery-rails'
+gem 'rails', '~> 3.2.0'
 gem 'thin'
+gem 'pg'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -12,7 +10,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'jquery-rails'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'debugger'
 end
