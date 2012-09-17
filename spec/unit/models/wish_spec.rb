@@ -1,11 +1,9 @@
 require "spec_helper_lite"
 require_relative "#{ROOT}/app/models/wish"
-require_relative "#{ROOT}/app/models/user"
 
 describe Wish do
   before(:each) do
-    @wish = Wish.new("just a wish")
-    @user = User.new
+    @wish = Wish.new(content: "just a wish")
   end
 
   it "starts with zero voters" do
@@ -13,11 +11,15 @@ describe Wish do
   end
 
   it "keeps track of its voters" do
-    user2 = User.new
-    @user.vote(@wish)
-    user2.vote(@wish)
-    @user.cancel_vote(@wish)
+    user = double("user")
+    @wish.add_vote(user)
+    @wish.voters.should eq [user]
 
+    user2 = double("user2")
+    @wish.add_vote(user2)
+    @wish.voters.should eq [user, user2]
+
+    @wish.remove_vote(user)
     @wish.voters.should eq [user2]
   end
 
@@ -26,38 +28,48 @@ describe Wish do
   end
 
   it "keeps track of its rank" do
-    user2 = User.new
+    user = double("user")
+    @wish.add_vote(user)
+    @wish.rank.should eq 1
 
-    @user.vote(@wish)
-    user2.vote(@wish)
-    @user.cancel_vote(@wish)
+    @wish.remove_vote(user)
+    @wish.rank.should eq 0
+  end
 
+  it "doesn't add vote twice for the same user" do
+    user = double("user")
+    @wish.add_vote(user)
+    @wish.add_vote(user)
+
+    @wish.voters.should eq [user]
     @wish.rank.should eq 1
   end
 
-  it "knows if it's fulfilled" do
-    @wish.fulfilled?.should be_false
-    @user.fulfill(@wish, "asd")
-    @wish.fulfilled?.should be_true
+  it "it returns an answer on whether voting succeeded or not" do
+    user = double("user")
+    @wish.add_vote(user).should be_true
+    @wish.add_vote(user).should be_false
+    @wish.remove_vote(user).should be_true
+    @wish.remove_vote(user).should be_false
   end
 
-  it "knows about it's fulfillment" do
-    @user.fulfill(@wish, "asd")
-    @wish.fulfillment.should eq "asd"
+  it "starts unfulfilled" do
+    @wish.should_not be_fulfilled
+  end
+
+  it "can be fulfilled" do
+    @wish.make_fulfilled(double("user"), "gem")
+    @wish.should be_fulfilled
+  end
+
+  it "knows what fulfilled it" do
+    @wish.make_fulfilled(double("user"), "gem")
+    @wish.fulfillment.should eq "gem"
   end
 
   it "knows who fulfilled it" do
-    @user.fulfill(@wish, "asd")
-    @wish.fulfilled_by.should eq @user
+    user = double("user")
+    @wish.make_fulfilled(user, "gem")
+    @wish.fulfilled_by.should eq user
   end
-
-  # we already check for this in the user specs, right?
-  #
-  # it "doesn't allow the same user to vote for it twice" do
-  #   user = User.new
-  #   user.vote(@wish)
-  #   user.vote(@wish)
-  #   @wish.rank.should eq(1)
-  #   @wish.voters.should eq([user])
-  # end
 end

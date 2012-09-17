@@ -1,28 +1,44 @@
+
+"SET!!!"
+
 class Wish
-  attr_accessor :content
-  attr_writer :rank, :voters, :fulfillment, :fulfilled_by
+  attr_reader :content, :rank, :voters, :fulfillment, :fulfilled_by
 
-  def initialize(content)
-    @content = content.to_s
-  end
+  def initialize(attributes)
+    attributes.each do |name, value|
+      instance_variable_set("@#{name}", value)
+    end
 
-  def rank
     @rank ||= 0
-  end
-
-  def voters
     @voters ||= []
   end
 
-  def fulfillment
-    @fulfillment ||= nil
-  end
-
   def fulfilled?
-    !!@fulfillment
+    !!fulfillment
   end
 
-  def fulfilled_by
-    @fulfilled_by ||= nil
+  def add_vote(user)
+    unless @voters.include?(user)
+      @rank += 1
+      @voters << user
+      true
+    else
+      false
+    end
+  end
+
+  def remove_vote(user)
+    if @voters.include?(user)
+      @rank -= 1
+      @voters.delete(user)
+      true
+    else
+      false
+    end
+  end
+
+  def make_fulfilled(user, gem)
+    @fulfilled_by = user
+    @fulfillment = gem
   end
 end

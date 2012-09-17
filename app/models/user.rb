@@ -1,24 +1,13 @@
 class User
   def vote(wish)
-    unless wish.voters.include?(self)
-      wish.rank += 1
-      wish.voters << self
-    else
-      false
-    end
+    wish.add_vote(self)
   end
 
   def cancel_vote(wish)
-    if wish.voters.include?(self)
-      wish.rank -= 1
-      wish.voters.delete(self)
-    else
-      false
-    end
+    wish.remove_vote(self)
   end
 
-  def fulfill(wish, with_gem)
-    wish.fulfillment = with_gem
-    wish.fulfilled_by = self
+  def fulfill_wish(wish, gem)
+    wish.make_fulfilled(self, gem)
   end
 end

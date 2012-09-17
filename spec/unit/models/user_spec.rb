@@ -1,39 +1,27 @@
 require "spec_helper_lite"
-require_relative "#{ROOT}/app/models/user"
-require_relative "#{ROOT}/app/models/wish"
+require "#{ROOT}/app/models/user"
 
 describe User do
   before(:each) do
     @user = User.new
-    @wish = Wish.new("just a wish")
   end
 
   it "is able to vote for a wish" do
-    @user.vote(@wish)
-    @wish.rank.should eq 1
-  end
-
-  it "is able to vote for the same wish only once" do
-    @user.vote(@wish)
-    @user.vote(@wish).should be_false
-
-    @wish.rank.should eq 1
+    wish = double("wish")
+    wish.should_receive(:add_vote).with(@user)
+    @user.vote(wish)
   end
 
   it "is able to cancel his vote on a wish" do
-    @user.vote(@wish)
-    @user.cancel_vote(@wish)
-
-    @wish.rank.should eq 0
-  end
-
-  it "is able to cancel his vote only if actually voted" do
-    @user.cancel_vote(@wish).should be_false
+    wish = double("wish")
+    wish.should_receive(:remove_vote).with(@user)
+    @user.cancel_vote(wish)
   end
 
   it "is able to fulfill a wish" do
+    wish = double("wish")
     gem = "some gem"
-    @user.fulfill(@wish, gem)
-    @wish.fulfillment.should eq gem
+    wish.should_receive(:make_fulfilled).with(@user, gem)
+    @user.fulfill_wish(wish, gem)
   end
 end
