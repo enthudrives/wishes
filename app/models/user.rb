@@ -1,5 +1,5 @@
 class User
-  def upvote(wish)
+  def vote(wish)
     unless wish.voters.include?(self)
       wish.rank += 1
       wish.voters << self
@@ -8,12 +8,16 @@ class User
     end
   end
 
-  def downvote(wish)
-    unless wish.voters.include?(self)
+  def cancel_vote(wish)
+    if wish.voters.include?(self)
       wish.rank -= 1
-      wish.voters << self
+      wish.voters.delete(self)
     else
       false
     end
+  end
+
+  def fulfill(wish, gem)
+    wish.fulfillment = gem
   end
 end

@@ -5,26 +5,35 @@ require_relative "#{ROOT}/app/models/wish"
 describe User do
   before(:each) do
     @user = User.new
+    @wish = Wish.new("just a wish")
   end
 
-  it "is able to vote up for a wish" do
-    wish = Wish.new
-    @user.upvote(wish)
-    wish.rank.should eq(1)
+  it "is able to vote for a wish" do
+    @user.vote(@wish)
+    @wish.rank.should eq 1
   end
 
-  it "is able to vote down for a wish" do
-    wish = Wish.new
-    @user.downvote(wish)
-    wish.rank.should eq(-1)
+  it "is able to vote for the same wish only once" do
+    @user.vote(@wish)
+    @user.vote(@wish).should be_false
+
+    @wish.rank.should eq 1
   end
 
-  it "is able to vote on the same wish only once" do
-    wish = Wish.new
-    @user.upvote(wish)
-    @user.upvote(wish).should be_false
-    wish.rank.should eq(1)
-    @user.downvote(wish).should be_false
-    wish.rank.should eq(1)
+  it "is able to cancel his vote on a wish" do
+    @user.vote(@wish)
+    @user.cancel_vote(@wish)
+
+    @wish.rank.should eq 0
+  end
+
+  it "is able to cancel his vote only if actually voted" do
+    @user.cancel_vote(@wish).should be_false
+  end
+
+  it "is able to fulfill a wish" do
+    gem = "some gem"
+    @user.fulfill(@wish, gem)
+    @wish.fulfillment.should eq gem
   end
 end

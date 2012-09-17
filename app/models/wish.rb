@@ -1,15 +1,24 @@
 class Wish
-  attr_writer :rank
+  attr_accessor :content
+  attr_writer :rank, :voters, :fulfillment
+
+  def initialize(content)
+    @content = content.to_s
+  end
+
   def rank
     @rank ||= 0
   end
 
-  def votes_count
-    voters.count
-  end
-
-  attr_writer :voters
   def voters
     @voters ||= []
+  end
+
+  def fulfillment
+    @fulfillment ||= nil
+  end
+
+  def fulfilled?
+    !!@fulfillment
   end
 end
