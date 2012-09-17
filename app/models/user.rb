@@ -19,5 +19,6 @@ class User
 
   def fulfill(wish, gem)
     wish.fulfillment = gem
+    wish.fulfilled_by = self
   end
 end

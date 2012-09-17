@@ -1,6 +1,6 @@
 class Wish
   attr_accessor :content
-  attr_writer :rank, :voters, :fulfillment
+  attr_writer :rank, :voters, :fulfillment, :fulfilled_by
 
   def initialize(content)
     @content = content.to_s
@@ -20,5 +20,9 @@ class Wish
 
   def fulfilled?
     !!@fulfillment
+  end
+
+  def fulfilled_by
+    @fulfilled_by ||= nil
   end
 end
