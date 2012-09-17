@@ -1,7 +1,7 @@
 require "set"
 
 class Wish
-  attr_reader :content, :voters, :fulfillment, :fulfilled_by
+  attr_writer :content, :voters, :fulfillment, :fulfilled_by
 
   def initialize(attributes)
     attributes.each do |name, value|

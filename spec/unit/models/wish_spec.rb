@@ -13,8 +13,8 @@ describe Wish do
 
   describe "#content" do
     it "cannot have more than 140 characters" do
-      wish = Wish.new(content: "c" * 141)
-      wish.should_not be_valid
+      @wish.content = "c" * 141
+      @wish.should_not be_valid
     end
   end
 
