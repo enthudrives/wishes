@@ -24,4 +24,15 @@ describe User do
     wish.should_receive(:make_fulfilled).with(@user, gem)
     @user.fulfill_wish(wish, gem)
   end
+
+  it "can make a new wish" do
+    new_wish = double("new_wish")
+    @user.wish_source = ->(attributes){ new_wish }
+    @user.new_wish.should eq new_wish
+  end
+
+  it "owns the made wish" do
+    @user.wish_source = ->(attributes){ double("new_wish", attributes) }
+    @user.new_wish.maker.should eq(@user)
+  end
 end
