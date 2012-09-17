@@ -1,11 +1,11 @@
 require "set"
 
 class Wish
-  attr_writer :content, :voters, :fulfillment, :fulfilled_by, :maker
+  attr_accessor :content, :voters, :fulfillment, :fulfilled_by, :maker
 
-  def initialize(attributes)
+  def initialize(attributes = {})
     attributes.each do |name, value|
-      instance_variable_set("@#{name}", value)
+      send("#{name}=", value)
     end
 
     @voters ||= Set.new
