@@ -17,8 +17,8 @@ class User
     end
   end
 
-  def fulfill(wish, gem)
-    wish.fulfillment = gem
+  def fulfill(wish, with_gem)
+    wish.fulfillment = with_gem
     wish.fulfilled_by = self
   end
 end
