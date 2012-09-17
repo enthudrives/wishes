@@ -1,5 +1,6 @@
 ROOT = File.expand_path("../", File.dirname(__FILE__))
 Dir["#{ROOT}/spec/support/**/*.rb"].each {|f| require f}
+require "debugger"
 
 RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
