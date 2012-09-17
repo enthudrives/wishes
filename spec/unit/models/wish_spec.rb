@@ -1,5 +1,6 @@
 require "spec_helper_lite"
-require_relative "#{ROOT}/app/models/wish"
+require "#{ROOT}/app/models/wish"
+require "set"
 
 describe Wish do
   before(:each) do
@@ -13,14 +14,14 @@ describe Wish do
   it "keeps track of its voters" do
     user = double("user")
     @wish.add_vote(user)
-    @wish.voters.should eq [user]
+    @wish.voters.should eq Set.new([user])
 
     user2 = double("user2")
     @wish.add_vote(user2)
-    @wish.voters.should eq [user, user2]
+    @wish.voters.should eq Set.new([user, user2])
 
     @wish.remove_vote(user)
-    @wish.voters.should eq [user2]
+    @wish.voters.should eq Set.new([user2])
   end
 
   it "starts with 0 rank" do
@@ -41,15 +42,15 @@ describe Wish do
     @wish.add_vote(user)
     @wish.add_vote(user)
 
-    @wish.voters.should eq [user]
+    @wish.voters.should eq Set.new([user])
     @wish.rank.should eq 1
   end
 
   it "it returns an answer on whether voting succeeded or not" do
     user = double("user")
-    @wish.add_vote(user).should be_true
+    @wish.add_vote(user).should be
     @wish.add_vote(user).should be_false
-    @wish.remove_vote(user).should be_true
+    @wish.remove_vote(user).should be
     @wish.remove_vote(user).should be_false
   end
 

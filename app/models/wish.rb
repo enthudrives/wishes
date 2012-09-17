@@ -1,40 +1,30 @@
-
-"SET!!!"
+require "set"
 
 class Wish
-  attr_reader :content, :rank, :voters, :fulfillment, :fulfilled_by
+  attr_reader :content, :voters, :fulfillment, :fulfilled_by
 
   def initialize(attributes)
     attributes.each do |name, value|
       instance_variable_set("@#{name}", value)
     end
 
-    @rank ||= 0
-    @voters ||= []
+    @voters ||= Set.new
   end
 
   def fulfilled?
-    !!fulfillment
+    !!@fulfillment
+  end
+
+  def rank
+    @voters.count
   end
 
   def add_vote(user)
-    unless @voters.include?(user)
-      @rank += 1
-      @voters << user
-      true
-    else
-      false
-    end
+    @voters.add?(user)
   end
 
   def remove_vote(user)
-    if @voters.include?(user)
-      @rank -= 1
-      @voters.delete(user)
-      true
-    else
-      false
-    end
+    @voters.delete?(user)
   end
 
   def make_fulfilled(user, gem)
