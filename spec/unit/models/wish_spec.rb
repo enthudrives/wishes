@@ -7,6 +7,17 @@ describe Wish do
     @wish = Wish.new(content: "just a wish")
   end
 
+  it "is valid" do
+    @wish.should be_valid
+  end
+
+  describe "#content" do
+    it "cannot have more than 140 characters" do
+      wish = Wish.new(content: "c" * 141)
+      wish.should_not be_valid
+    end
+  end
+
   it "starts with zero voters" do
     @wish.voters.should be_empty
   end

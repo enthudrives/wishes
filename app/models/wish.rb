@@ -31,4 +31,13 @@ class Wish
     @fulfilled_by = user
     @fulfillment = gem
   end
+
+  def valid?
+    conditions = [@content.size <= 140]
+    if conditions.all?
+      true
+    else
+      false
+    end
+  end
 end
