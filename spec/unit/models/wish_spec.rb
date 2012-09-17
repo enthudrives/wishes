@@ -43,6 +43,12 @@ describe Wish do
     @wish.fulfilled?.should be_true
   end
 
+  it "knows about it's fulfillment" do
+    user = User.new
+    user.fulfill(@wish, "asd")
+    @wish.fulfillment.should eq "asd"
+  end
+
   # we already check for this in the user specs, right?
   #
   # it "doesn't allow the same user to vote for it twice" do
