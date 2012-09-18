@@ -33,11 +33,6 @@ class Wish
   end
 
   def valid?
-    conditions = [@content.size <= 140]
-    if conditions.all?
-      true
-    else
-      false
-    end
+    @content.size <= 140 ? true : false
   end
 end
