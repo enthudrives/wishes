@@ -1,5 +1,5 @@
 require "spec_helper_lite"
-require "#{ROOT}/app/models/user"
+require "#{Rails.root}/app/models/user"
 
 describe User do
   before(:each) do
