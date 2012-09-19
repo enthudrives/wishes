@@ -22,6 +22,7 @@ class User
 
   def fulfill_wish(wish, gem_name)
     gem = Rubygem.new(gem_name)
+
     if gem.valid?
       wish.make_fulfilled(self, gem)
     else
