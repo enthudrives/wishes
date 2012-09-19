@@ -1,7 +1,7 @@
 require "set"
 
 class Wish
-  attr_accessor :content, :voters, :fulfillment, :fulfilled_by, :maker
+  attr_accessor :content, :voters, :fulfillment, :fulfiller, :maker
 
   def initialize(attributes = {})
     attributes.each do |name, value|
@@ -28,7 +28,7 @@ class Wish
   end
 
   def make_fulfilled(user, gem)
-    @fulfilled_by = user
+    @fulfiller = user
     @fulfillment = gem
   end
 

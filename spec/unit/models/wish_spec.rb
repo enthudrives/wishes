@@ -85,6 +85,6 @@ describe Wish do
   it "knows who fulfilled it" do
     user = double("user")
     @wish.make_fulfilled(user, "gem")
-    @wish.fulfilled_by.should eq user
+    @wish.fulfiller.should eq user
   end
 end
