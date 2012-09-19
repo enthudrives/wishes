@@ -1,13 +1,13 @@
-class Rubygem
-  attr_accessor :name, :ruby_version
+require 'gems'
 
-  def initialize(attributes = {})
-    attributes.each do |name, value|
-      send("#{name}=", value)
-    end
+class Rubygem
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
   end
 
   def valid?
-    true
+    !!Gems.info(self.name)
   end
 end

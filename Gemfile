@@ -3,6 +3,7 @@ source :rubygems
 gem 'rails', '~> 3.2.0'
 gem 'thin'
 gem 'pg'
+gem 'gems'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
