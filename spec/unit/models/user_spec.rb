@@ -19,8 +19,7 @@ describe User do
   end
 
   it "is able to fulfill a wish" do
-    wish = double("wish")
-    gem = "some gem"
+    wish, gem = double("wish"), double("gem")
     wish.should_receive(:make_fulfilled).with(@user, gem)
     @user.fulfill_wish(wish, gem)
   end
@@ -32,7 +31,8 @@ describe User do
   end
 
   it "owns the made wish" do
-    @user.wish_source = ->(attributes){ double("new_wish", attributes) }
+    new_wish = double("new_wish")
+    @user.wish_source = ->(attributes){ new_wish.stub(attributes) }
     @user.new_wish.maker.should eq(@user)
   end
 end
