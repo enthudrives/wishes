@@ -31,8 +31,6 @@ describe User do
   end
 
   it "owns the made wish" do
-    new_wish = double("new_wish")
-    @user.wish_source = ->(attributes){ new_wish.stub(attributes) }
-    @user.new_wish.maker.should eq(@user)
+    @user.new_wish.maker.should eq @user
   end
 end
