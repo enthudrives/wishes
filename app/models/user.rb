@@ -20,8 +20,13 @@ class User
     wish.remove_vote(self)
   end
 
-  def fulfill_wish(wish, gem)
-    wish.make_fulfilled(self, gem)
+  def fulfill_wish(wish, gem_name)
+    gem = Rubygem.new(gem_name)
+    if gem.valid?
+      wish.make_fulfilled(self, gem)
+    else
+      raise "Couldn't find gem"
+    end
   end
 
   def new_wish(attributes = {})

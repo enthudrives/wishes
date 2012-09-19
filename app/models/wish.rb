@@ -11,10 +11,6 @@ class Wish
     @voters ||= Set.new
   end
 
-  def fulfilled?
-    !!@fulfillment
-  end
-
   def rank
     @voters.count
   end
@@ -30,6 +26,10 @@ class Wish
   def make_fulfilled(user, gem)
     @fulfiller = user
     @fulfillment = gem
+  end
+
+  def fulfilled?
+    !!@fulfillment
   end
 
   def valid?
