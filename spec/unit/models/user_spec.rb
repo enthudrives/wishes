@@ -3,7 +3,7 @@ require "#{ROOT}/app/models/user"
 
 describe User do
   before :each do
-    @user = User.new
+    @user = User.new(name: "Matz")
     @wish = double("wish")
   end
 
