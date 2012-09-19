@@ -1,5 +1,10 @@
 class User
   attr_writer :wish_source
+  attr_accessor :name
+
+  def initialize(name = "Matz")
+    @name = name
+  end
 
   def wish_source
     @wish_source ||= Wish.public_method(:new)
