@@ -1,5 +1,6 @@
 class User
   attr_writer :wish_source
+
   def wish_source
     @wish_source ||= Wish.public_method(:new)
   end
