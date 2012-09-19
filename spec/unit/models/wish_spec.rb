@@ -12,13 +12,20 @@ describe Wish do
   end
 
   describe "#content" do
-    it "cannot have more than 140 characters" do
-      @wish.content = "c" * 140
+    it "must have between 10 and 140 characters" do
+      @wish.content = 'c' * 10
       @wish.should be_valid
 
-      @wish.content += "c"
+      @wish.content = 'c' * 140
+      @wish.should be_valid
+
+      @wish.content = 'c' * 9
+      @wish.should_not be_valid
+
+      @wish.content = 'c' * 141
       @wish.should_not be_valid
     end
+
   end
 
   it "starts with zero voters" do

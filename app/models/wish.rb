@@ -33,6 +33,6 @@ class Wish
   end
 
   def valid?
-    @content.size <= 140 ? true : false
+    [@content.size.between?(10, 140)].all?
   end
 end
