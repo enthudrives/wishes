@@ -1,5 +1,5 @@
 require "spec_helper_lite"
-require "#{Rails.root}/app/models/wish"
+require "#{ROOT}/app/models/wish"
 
 
 describe Fulfillment do
