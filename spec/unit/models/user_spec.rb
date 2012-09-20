@@ -18,12 +18,11 @@ describe User do
     @user.cancel_vote(wish)
   end
 
-  # failing spec, not exactly sure how to test this
   it "is able to fulfill a wish" do
     wish = double("wish")
-    rubygem = double("rubygem", name: 'rails')
+    rubygem = double("rubygem")
     wish.should_receive(:make_fulfilled).with(@user, rubygem)
-    @user.fulfill_wish(wish, rubygem.name)
+    @user.fulfill_wish(wish, rubygem)
   end
 
   it "can make a new wish" do
