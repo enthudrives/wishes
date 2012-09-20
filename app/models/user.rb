@@ -29,7 +29,7 @@ class User
     wish_source.call(attributes.merge(maker: self))
   end
 
-  def new_recommendation(attributes = {}, wish)
+  def new_recommendation(wish, attributes = {})
     recommendation = @recommendation_source.call(attributes.merge(recommender: self))
     wish.new_recommendation(recommendation)
   end

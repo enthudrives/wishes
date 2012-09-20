@@ -4,7 +4,7 @@ Dir["#{ROOT}/spec/support/**/*.rb"].each {|f| require f}
 require "debugger"
 
 require "factory_girl_rails"
-require "#{ROOT}/spec/factories"
+Dir["#{ROOT}/spec/factories/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
