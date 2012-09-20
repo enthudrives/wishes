@@ -10,10 +10,7 @@ describe Wish do
     describe "#content" do
       it "must have between 10 and 140 characters" do
         build(:wish, content: "c" * 9).should_not be_valid
-        build(:wish, content: "c" * 10).should be_valid
-
         build(:wish, content: "c" * 141).should_not be_valid
-        build(:wish, content: "c" * 140).should be_valid
       end
     end
   end
