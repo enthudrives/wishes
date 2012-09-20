@@ -17,13 +17,6 @@ describe User do
     @user.cancel_vote(wish)
   end
 
-  it "is able to fulfill a wish" do
-    wish = double("wish")
-    rubygem = double("rubygem")
-    wish.should_receive(:make_fulfilled).with(@user, rubygem)
-    @user.fulfill_wish(wish, rubygem)
-  end
-
   it "can make a new wish" do
     wish = double("wish")
     @user.wish_source = ->(attributes){ wish }
@@ -34,5 +27,12 @@ describe User do
     wish = double("wish")
     @user.wish_source = ->(attributes){ wish.tap {|wish| wish.stub(attributes) } }
     @user.new_wish.maker.should eq @user
+  end
+
+  it "can make a new recommendation" do
+    wish = double("wish")
+    wish.should_receive(:new_recommendation)
+    @user.recommendation_source = ->(attributes){}
+    @user.new_recommendation(wish)
   end
 end

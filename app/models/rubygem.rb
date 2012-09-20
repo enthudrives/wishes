@@ -2,7 +2,7 @@ require 'gems'
 require "active_support/core_ext/object/blank"
 
 class Rubygem
-  attr_accessor :name
+  attr_accessor :name, :recommender
 
   def initialize(attributes = {})
     attributes.each do |name, value|

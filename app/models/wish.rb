@@ -1,7 +1,7 @@
 require "set"
 
 class Wish
-  attr_accessor :content, :voters, :fulfillment, :fulfiller, :maker
+  attr_accessor :content, :voters, :fulfillment, :fulfiller, :maker, :recommendations
 
   def initialize(attributes = {})
     attributes.each do |name, value|
@@ -9,6 +9,7 @@ class Wish
     end
 
     @voters ||= Set.new
+    @recommendations ||= Set.new
   end
 
   def rank
@@ -23,8 +24,8 @@ class Wish
     @voters.delete?(user)
   end
 
-  def make_fulfilled(user, gem)
-    @fulfiller = user
+  def make_fulfilled(gem)
+    @fulfiller = gem.recommender
     @fulfillment = gem
   end
 
@@ -34,5 +35,10 @@ class Wish
 
   def valid?
     [@content.size.between?(10, 140)].all?
+  end
+
+  def new_recommendation(gem)
+    @recommendations << gem
+    gem
   end
 end

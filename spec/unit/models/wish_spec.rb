@@ -62,23 +62,31 @@ describe Wish do
     @wish.remove_vote(user).should be_false
   end
 
+  it "can take a recommendation" do
+    recommendation = double(recommender: "someone")
+    @wish.new_recommendation(recommendation)
+    @wish.recommendations.should include(recommendation)
+  end
+
   it "starts unfulfilled" do
     @wish.should_not be_fulfilled
   end
 
   it "can be fulfilled" do
-    @wish.make_fulfilled(double("user"), "gem")
+    gem = double("gem", recommender: "someone")
+    @wish.make_fulfilled(gem)
     @wish.should be_fulfilled
   end
 
   it "knows what fulfilled it" do
-    @wish.make_fulfilled(double("user"), "gem")
-    @wish.fulfillment.should eq "gem"
+    gem = double("gem", recommender: "someone")
+    @wish.make_fulfilled(gem)
+    @wish.fulfillment.should eq gem
   end
 
   it "knows who fulfilled it" do
-    user = double("user")
-    @wish.make_fulfilled(user, "gem")
-    @wish.fulfiller.should eq user
+    gem = double("gem", recommender: "someone")
+    @wish.make_fulfilled(gem)
+    @wish.fulfiller.should eq "someone"
   end
 end
