@@ -28,8 +28,4 @@ RSpec.configure do |config|
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
-
-  # Mix-in FG's methods so you don't have to call FactoryGirl in the tests
-  # http://robots.thoughtbot.com/post/19162390206/short-explicit-test-setups
-  config.include FactoryGirl::Syntax::Methods
 end
