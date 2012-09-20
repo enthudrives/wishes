@@ -1,16 +1,13 @@
 require "active_support/core_ext/object/blank"
 
 class User
-  attr_writer :wish_source
-  attr_accessor :name
+  attr_accessor :name, :wish_source
 
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)
     end
-  end
 
-  def wish_source
     @wish_source ||= Wish.public_method(:new)
   end
 
