@@ -3,21 +3,22 @@ require "#{ROOT}/app/models/rubygem"
 
 
 describe Rubygem do
-  before :each do
-    @rubygem = Rubygem.new(name: 'rails')
-  end
-
+  before(:each) { @rubygem = Rubygem.new(name: "rails") }
   subject { @rubygem }
 
   it { should be_valid }
 
-  it "should not be valid with a blank name" do
-    @rubygem.name = ''
-    should_not be_valid
-  end
+  describe "validations" do
+    describe "#name" do
+      it "can't be blank" do
+        @rubygem.name = ""
+        @rubygem.should_not be_valid
+      end
 
-  it "should not be valid if unexisting gem is provided" do
-    @rubygem.name = "i_dont_exist_n381bv93"
-    should_not be_valid
+      it "must exist" do
+        @rubygem.name = "non_existing_gem"
+        @rubygem.should_not be_valid
+      end
+    end
   end
 end

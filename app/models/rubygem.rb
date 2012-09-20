@@ -9,8 +9,12 @@ class Rubygem
     end
   end
 
+  # This will be provided for us automatically by ActiveRecord
+  def name?
+    name != nil and not name.empty?
+  end
+
   def valid?
-    return false if self.name.blank?
-    !!Gems.info(self.name)
+    [Gems.info(name), name?].all?
   end
 end
