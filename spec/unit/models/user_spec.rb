@@ -7,12 +7,9 @@ describe User do
     @wish = double("wish")
   end
 
-  it { should respond_to :name }
-  it { should respond_to :wish_source }
-  it { should respond_to :vote }
-  it { should respond_to :cancel_vote }
-  it { should respond_to :fulfill_wish }
-  it { should respond_to :new_wish }
+  subject { @user }
+
+  it { should be_valid }
 
   it "is able to vote for a wish" do
     @wish.should_receive(:add_vote).with(@user)
