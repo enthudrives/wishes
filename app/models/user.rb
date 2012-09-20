@@ -1,3 +1,5 @@
+require "active_support/core_ext/object/blank"
+
 class User
   attr_writer :wish_source
   attr_accessor :name
@@ -10,6 +12,10 @@ class User
 
   def wish_source
     @wish_source ||= Wish.public_method(:new)
+  end
+
+  def valid?
+    [name.present?].all?
   end
 
   def vote(wish)

@@ -1,4 +1,5 @@
 require 'gems'
+require "active_support/core_ext/object/blank"
 
 class Rubygem
   attr_accessor :name
@@ -9,12 +10,7 @@ class Rubygem
     end
   end
 
-  # This will be provided for us automatically by ActiveRecord
-  def name?
-    name != nil and not name.empty?
-  end
-
   def valid?
-    [Gems.info(name), name?].all?
+    [Gems.info(name), name.present?].all?
   end
 end
