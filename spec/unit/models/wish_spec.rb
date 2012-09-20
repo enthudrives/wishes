@@ -3,29 +3,19 @@ require "#{ROOT}/app/models/wish"
 require "set"
 
 describe Wish do
-  before(:each) do
-    @wish = Wish.new(content: "just a wish")
-  end
+  before(:each) { @wish = build(:wish) }
+  subject { @wish }
 
-  it "is valid" do
-    @wish.should be_valid
-  end
+  describe "validations" do
+    describe "#content" do
+      it "must have between 10 and 140 characters" do
+        build(:wish, content: "c" * 9).should_not be_valid
+        build(:wish, content: "c" * 10).should be_valid
 
-  describe "#content" do
-    it "must have between 10 and 140 characters" do
-      @wish.content = 'c' * 10
-      @wish.should be_valid
-
-      @wish.content = 'c' * 140
-      @wish.should be_valid
-
-      @wish.content = 'c' * 9
-      @wish.should_not be_valid
-
-      @wish.content = 'c' * 141
-      @wish.should_not be_valid
+        build(:wish, content: "c" * 141).should_not be_valid
+        build(:wish, content: "c" * 140).should be_valid
+      end
     end
-
   end
 
   it "starts with zero voters" do

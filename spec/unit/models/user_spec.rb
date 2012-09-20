@@ -2,9 +2,8 @@ require "spec_helper_lite"
 require "#{ROOT}/app/models/user"
 
 describe User do
-  before :each do
-    @user = User.new(name: "Matz")
-  end
+  before(:each) { @user = build(:user) }
+  subject { @user }
 
   it "is able to vote for a wish" do
     wish = double("wish")
@@ -33,7 +32,7 @@ describe User do
 
   it "owns the made wish" do
     wish = double("wish")
-    @user.wish_source = ->(attributes){ double("wish", attributes) }
+    @user.wish_source = ->(attributes){ wish.tap {|wish| wish.stub(attributes) } }
     @user.new_wish.maker.should eq @user
   end
 end
