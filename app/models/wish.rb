@@ -9,7 +9,7 @@ class Wish
     end
 
     @voters ||= Set.new
-    @recommendations ||= Set.new
+    @recommendations ||= []
   end
 
   def rank
