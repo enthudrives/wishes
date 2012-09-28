@@ -169,7 +169,7 @@ DEPENDENCIES
   gems
   jquery-rails
   pg
-  rails (~> 3.2.0)
+  rails (= 3.2.8)
   rspec-rails
   sass-rails (~> 3.2.3)
   thin
