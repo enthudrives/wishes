@@ -1,6 +1,6 @@
-require "active_support/core_ext/object/blank"
+require 'active_support/core_ext/object/blank'
 
-class User
+class User < ActiveRecord::Base
   attr_accessor :name, :wish_source, :recommendations, :recommendation_source
 
   def initialize(attributes = {})

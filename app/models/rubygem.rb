@@ -1,5 +1,5 @@
 require 'gems'
-require "active_support/core_ext/object/blank"
+require 'active_support/core_ext/object/blank'
 
 class Rubygem
   attr_accessor :name, :recommender
