@@ -1,6 +1,10 @@
 require 'active_support/core_ext/object/blank'
 
 class User < ActiveRecord::Base
+
+  has_many :wishes, foreign_key: maker_id
+  has_many :recommendations
+
   attr_accessor :name, :wish_source, :recommendations, :recommendation_source
 
   def initialize(attributes = {})

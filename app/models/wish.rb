@@ -1,44 +1,39 @@
 require "set"
 
 class Wish < ActiveRecord::Base
-  attr_accessor :content, :voters, :fulfillment, :fulfiller, :maker, :recommendations
+  attr_accessible :content
 
-  def initialize(attributes = {})
-    attributes.each do |name, value|
-      send("#{name}=", value)
-    end
+  belongs_to :user
+  has_many :recommendations
 
-    @voters ||= Set.new
-    @recommendations ||= []
+  validates :content, presence: true, uniqueness: true, length: { in: 10..140 }
+
+  private
+
+  after_initialize do |wish|
+    wish.rank = 0
+    wish.voters = Set.new
   end
 
-  def rank
-    @voters.count
-  end
+  # def add_vote(user)
+  #   @voters.add?(user)
+  # end
 
-  def add_vote(user)
-    @voters.add?(user)
-  end
+  # def remove_vote(user)
+  #   @voters.delete?(user)
+  # end
 
-  def remove_vote(user)
-    @voters.delete?(user)
-  end
+  # def make_fulfilled(gem)
+  #   @fulfiller = gem.recommender
+  #   @fulfillment = gem
+  # end
 
-  def make_fulfilled(gem)
-    @fulfiller = gem.recommender
-    @fulfillment = gem
-  end
+  # def fulfilled?
+  #   !!@fulfillment
+  # end
 
-  def fulfilled?
-    !!@fulfillment
-  end
-
-  def valid?
-    [@content.size.between?(10, 140)].all?
-  end
-
-  def new_recommendation(gem)
-    @recommendations << gem
-    gem
-  end
+  # def new_recommendation(gem)
+  #   @recommendations << gem
+  #   gem
+  # end
 end
