@@ -1,5 +1,3 @@
-require 'set'
-
 class Wish < ActiveRecord::Base
   attr_accessible :content
 
