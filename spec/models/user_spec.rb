@@ -5,34 +5,11 @@ describe User do
     @user = build(:user)
   end
 
-  # it "is able to vote for a wish" do
-  #   wish = double("wish")
-  #   wish.should_receive(:add_vote).with(@user)
-  #   @user.vote(wish)
-  # end
+  it { should have_many :wishes }
+  it { should have_many :recommendations }
+  it { should have_many :votes }
 
-  # it "is able to cancel his vote on a wish" do
-  #   wish = double("wish")
-  #   wish.should_receive(:remove_vote).with(@user)
-  #   @user.cancel_vote(wish)
-  # end
+  it { should validate_presence_of :name }
+  it { should validate_uniqueness_of :name }
 
-  # it "can make a new wish" do
-  #   wish = double("wish")
-  #   @user.wish_source = ->(attributes){ wish }
-  #   @user.new_wish.should eq wish
-  # end
-
-  # it "owns the made wish" do
-  #   wish = double("wish")
-  #   @user.wish_source = ->(attributes){ wish.tap {|wish| wish.stub(attributes) } }
-  #   @user.new_wish.maker.should eq @user
-  # end
-
-  # it "can make a new recommendation" do
-  #   wish = double("wish")
-  #   wish.should_receive(:new_recommendation)
-  #   @user.recommendation_source = ->(attributes){}
-  #   @user.new_recommendation(wish)
-  # end
 end
