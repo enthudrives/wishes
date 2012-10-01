@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :wish do
-    content "Just a wish"
+  factory :vote do
+    wish { build(:wish) }
     user { build(:user) }
   end
 end

@@ -1,27 +1,9 @@
-require "rspec/core/rake_task"
+unless Rails.env == 'production'
+  desc 'Run factory specs'
 
-namespace :spec do
-  desc "Run factory specs"
-  RSpec::Core::RakeTask.new(:factory) do |t|
-    t.pattern = "./spec/unit/factories_spec.rb"
-    t.verbose = true
+  RSpec::Core::RakeTask.new(:factory_specs) do |t|
+    t.pattern = './spec/factories_spec.rb'
   end
 
-  desc "Run unit tests"
-  RSpec::Core::RakeTask.new(:unit) do |t|
-    t.pattern = "spec/unit/**/*_spec.rb"
-    t.verbose = true
-  end
-
-  desc "Run integration tests"
-  RSpec::Core::RakeTask.new(:integration) do |t|
-    t.pattern = "spec/integration/**/*_spec.rb"
-    t.verbose = true
-  end
-
-  task :integration => :factory
+  task :spec => :factory_specs
 end
-
-Rake::Task[:spec].clear
-desc "Run all tests"
-task :spec => ["spec:factory", "spec:unit", "spec:integration"]

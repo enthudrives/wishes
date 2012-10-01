@@ -18,7 +18,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'debugger'
-  gem 'capybara'
   gem 'vcr'
   gem 'fakeweb'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'spork'
 end
