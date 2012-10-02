@@ -10,9 +10,6 @@ describe Recommendation do
   it { should validate_presence_of :gem }
 
   it "is a valid Rubygem" do
-    recommendation = build(:recommendation)
-    recommendation.gem = 'non_existing_gem'
-
-    recommendation.should_not be_valid
+    build(:recommendation, gem: 'non_existing_gem').should_not be_valid
   end
 end
