@@ -1,18 +1,18 @@
 require 'spec_helper'
 
 describe Recommendation do
-#   before(:each) { @rubygem = build(:rubygem) }
-#   subject { @rubygem }
+  it { should allow_mass_assignment_of :gem }
+  it { should allow_mass_assignment_of :wish_id }
 
-#   describe "validations", :vcr do
-#     describe "#name" do
-#       it "can't be blank" do
-#         build(:rubygem, name: "").should_not be_valid
-#       end
+  it { should belong_to :wish }
+  it { should belong_to :user }
 
-#       it "must exist" do
-#         build(:rubygem, name: "non_existing_gem").should_not be_valid
-#       end
-#     end
-#   end
+  it { should validate_presence_of :gem }
+
+  it "is a valid Rubygem" do
+    recommendation = build(:recommendation)
+    recommendation.gem = 'non_existing_gem'
+
+    recommendation.should_not be_valid
+  end
 end

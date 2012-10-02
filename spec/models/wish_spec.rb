@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Wish do
-  before :each do
-    @wish = build(:wish)
-  end
+  before(:each) { @wish = build(:wish) }
 
   it { should allow_mass_assignment_of :content }
   it { should_not allow_mass_assignment_of :user_id }
