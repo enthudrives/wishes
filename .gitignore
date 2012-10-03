@@ -15,5 +15,6 @@
 /tmp
 
 *.DS_Store
+.rspec
 
 /doc
