@@ -21,4 +21,5 @@ group :development, :test do
   gem 'capybara'
   gem 'vcr'
   gem 'fakeweb'
+  gem 'pry-rails'
 end
