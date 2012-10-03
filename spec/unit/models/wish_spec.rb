@@ -1,5 +1,5 @@
 require "spec_helper_lite"
-require "#{ROOT}/app/models/wish"
+require_relative "../../../app/models/wish"
 require "set"
 
 describe Wish do

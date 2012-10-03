@@ -1,5 +1,5 @@
 require "spec_helper_lite"
-require "#{ROOT}/app/models/user"
+require_relative "../../../app/models/user"
 
 describe User do
   before(:each) { @user = build(:user) }
