@@ -1,25 +1,43 @@
 require "rspec/core/rake_task"
 
-namespace :spec do
-  desc "Run factory specs"
-  RSpec::Core::RakeTask.new(:factory) do |t|
-    t.pattern = "./spec/unit/factories_spec.rb"
-    t.verbose = true
+module RSpec
+  module Core
+    class RakeTask
+      attr_accessor :spec_files
+
+      def files_to_run
+        if ENV["SPEC"]
+          FileList[ENV["SPEC"]].sort
+        else
+          spec_files
+        end
+      end
+    end
   end
+end
+
+namespace :spec do
+  all_specs = FileList["spec/**/*_spec.rb"]
+  integration_specs = FileList["spec/**/*_integration_spec.rb"]
+  unit_specs = all_specs - integration_specs
 
   desc "Run unit tests"
   RSpec::Core::RakeTask.new(:unit) do |t|
-    t.pattern = "spec/unit/**/*_spec.rb"
+    t.spec_files = unit_specs
     t.verbose = true
   end
 
   desc "Run integration tests"
   RSpec::Core::RakeTask.new(:integration) do |t|
-    t.pattern = "spec/integration/**/*_spec.rb"
+    t.spec_files = integration_specs
     t.verbose = true
   end
 
-  task :integration => :factory
+  desc "Run factory specs"
+  RSpec::Core::RakeTask.new(:factory) do |t|
+    t.spec_files = FileList["spec/factories_spec.rb"]
+    t.verbose = true
+  end
 end
 
 Rake::Task[:spec].clear

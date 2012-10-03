@@ -1,5 +1,5 @@
 require "spec_helper_lite"
-require_relative "../../../app/models/rubygem"
+require_relative "../../app/models/rubygem"
 
 
 describe Rubygem do
