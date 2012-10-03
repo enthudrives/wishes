@@ -1,16 +1,23 @@
 require 'active_support/core_ext/object/blank'
 
 class User < ActiveRecord::Base
-  attr_accessor :name, :wish_source, :recommendations, :recommendation_source
+  attr_accessor :name, :recommendations
+  attr_writer :wish_source, :recommendation_source
 
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)
     end
 
-    @wish_source ||= Wish.public_method(:new)
-    @recommendation_source ||= Rubygem.public_method(:new)
     @recommendations ||= []
+  end
+
+  def wish_source
+    @wish_source ||= Wish.public_method(:new)
+  end
+
+  def recommendation_source
+    @recommendation_source ||= Rubygem.public_method(:new)
   end
 
   def valid?
@@ -30,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def new_recommendation(wish, attributes = {})
-    recommendation = @recommendation_source.call(attributes.merge(recommender: self))
+    recommendation = recommendation_source.call(attributes.merge(recommender: self))
     wish.new_recommendation(recommendation)
   end
 end

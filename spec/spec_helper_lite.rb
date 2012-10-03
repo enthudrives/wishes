@@ -16,6 +16,7 @@ RSpec.configure do |config|
   # Mix-in FG's methods so you don't have to call FactoryGirl in the tests
   # http://robots.thoughtbot.com/post/19162390206/short-explicit-test-setups
   config.include FactoryGirl::Syntax::Methods
+
   config.treat_symbols_as_metadata_keys_with_true_values = true
 end
 
