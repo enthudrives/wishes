@@ -1,6 +1,6 @@
 require "set"
 
-class Wish < ActiveRecord::Base
+class Wish
   attr_accessor :content, :voters, :fulfillment, :fulfiller, :maker, :recommendations
 
   def initialize(attributes = {})

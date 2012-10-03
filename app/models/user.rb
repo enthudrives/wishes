@@ -1,6 +1,6 @@
 require 'active_support/core_ext/object/blank'
 
-class User < ActiveRecord::Base
+class User
   attr_accessor :name, :recommendations
   attr_writer :wish_source, :recommendation_source
 
