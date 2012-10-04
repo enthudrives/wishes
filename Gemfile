@@ -23,3 +23,5 @@ group :development, :test do
   gem 'fakeweb'
   gem 'pry-rails'
 end
+
+gem 'active_attr'

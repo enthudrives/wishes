@@ -1,6 +1,8 @@
 require "set"
+require "active_attr"
 
 class Wish
+  include ActiveAttr::Model
   attr_accessor :content, :voters, :fulfillment, :fulfiller, :maker, :recommendations
 
   def initialize(attributes = {})
@@ -40,5 +42,9 @@ class Wish
   def new_recommendation(gem)
     @recommendations << gem
     gem
+  end
+
+  def to_param
+    1
   end
 end
