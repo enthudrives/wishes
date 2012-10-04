@@ -3,7 +3,7 @@ Dir["#{ROOT}/spec/support/**/*.rb"].each {|f| require f}
 
 require "debugger"
 
-require "factory_girl_rails"
+require "factory_girl"
 Dir["#{ROOT}/spec/factories/*.rb"].each { |f| require f } if FactoryGirl.factories.none?
 
 RSpec.configure do |config|
