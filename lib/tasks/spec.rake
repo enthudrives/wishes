@@ -5,11 +5,12 @@ module RSpec
     class RakeTask
       attr_accessor :spec_files
 
+      alias old_files_to_run files_to_run
       def files_to_run
-        if ENV["SPEC"]
-          FileList[ENV["SPEC"]].sort
-        else
+        if spec_files and not ENV["SPEC"]
           spec_files
+        else
+          old_files_to_run
         end
       end
     end
