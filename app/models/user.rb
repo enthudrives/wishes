@@ -24,8 +24,12 @@ class User
     [name.present?].all?
   end
 
-  def vote(wish)
-    wish.add_vote(self)
+  def upvote(wish)
+    wish.add_upvote(self)
+  end
+
+  def downvote(wish)
+    wish.add_downvote(self)
   end
 
   def cancel_vote(wish)

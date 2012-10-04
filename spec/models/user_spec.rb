@@ -7,8 +7,12 @@ describe User do
 
   it "is able to vote for a wish" do
     wish = double("wish")
-    wish.should_receive(:add_vote).with(@user)
-    @user.vote(wish)
+
+    wish.should_receive(:add_upvote).with(@user)
+    @user.upvote(wish)
+
+    wish.should_receive(:add_downvote).with(@user)
+    @user.downvote(wish)
   end
 
   it "is able to cancel his vote on a wish" do

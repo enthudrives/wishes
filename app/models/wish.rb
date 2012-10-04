@@ -1,29 +1,37 @@
-require "set"
 require "active_attr"
+require_relative "vote"
 
 class Wish
   include ActiveAttr::Model
-  attr_accessor :content, :voters, :fulfillment, :fulfiller, :maker, :recommendations
+  attr_accessor :content, :votes, :fulfillment, :fulfiller, :maker, :recommendations
 
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)
     end
 
-    @voters ||= Set.new
+    @votes ||= VoteSet.new
     @recommendations ||= []
   end
 
   def rank
-    @voters.count
+    @votes.map(&:value).inject(0, :+)
   end
 
-  def add_vote(user)
-    @voters.add?(user)
+  def voters
+    @votes.map(&:voter)
+  end
+
+  def add_upvote(user)
+    @votes << Vote.new(object: self, voter: user, value: 1)
+  end
+
+  def add_downvote(user)
+    @votes << Vote.new(object: self, voter: user, value: -1)
   end
 
   def remove_vote(user)
-    @voters.delete?(user)
+    @votes.delete_from_user(user)
   end
 
   def make_fulfilled(gem)
