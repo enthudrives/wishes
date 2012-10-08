@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :votes
 
   def self.from_omniauth(auth)
-    where("uid = ?", auth["uid"]) || create_from_omniauth(auth)
+    where("uid IS ?", auth["uid"]).first || create_from_omniauth(auth)
   end
 
   def self.create_from_omniauth(auth)
