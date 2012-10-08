@@ -4,5 +4,5 @@ Wishes::Application.routes.draw do
 
   match '/auth/github/callback' => 'sessions#create'
 
-  root to: "wishes#show", id: 1
+  root to: "wishes#index"
 end
