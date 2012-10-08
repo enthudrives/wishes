@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121001161430) do
+ActiveRecord::Schema.define(:version => 20121008211517) do
 
   create_table "recommendations", :force => true do |t|
     t.integer "wish_id"
@@ -22,7 +22,10 @@ ActiveRecord::Schema.define(:version => 20121001161430) do
   add_index "recommendations", ["user_id", "wish_id"], :name => "index_recommendations_on_user_id_and_wish_id"
 
   create_table "users", :force => true do |t|
-    t.string "name", :null => false
+    t.string "name",     :null => false
+    t.string "email"
+    t.string "uid"
+    t.string "provider"
   end
 
   create_table "votes", :force => true do |t|
@@ -34,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20121001161430) do
 
   create_table "wishes", :force => true do |t|
     t.text    "content", :null => false
-    t.integer "rank",    :null => false
+    t.integer "rank"
     t.integer "user_id", :null => false
   end
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Wish do
-  before(:each) { @wish = build(:wish) }
+  let(:wish) { wish = create(:wish) }
 
   it { should allow_mass_assignment_of :content }
   it { should_not allow_mass_assignment_of :user_id }
@@ -17,11 +17,18 @@ describe Wish do
                       }
 
   it "has unique content" do
-    create(:wish)
-    @wish.should_not be_valid
+    build(:wish, content: wish.content).should_not be_valid
   end
 
   it "starts with rank 0" do
-    @wish.rank.should eq 0
+    wish.rank.should eq 0
+  end
+
+  it "keeps track of its rank" do
+    create(:user).votes.create(wish_id: wish.id)
+    wish.rank.should eq 1
+
+    create(:user, id: 2, name: 'nick').votes.create(wish_id: wish.id)
+    wish.rank.should eq 2
   end
 end

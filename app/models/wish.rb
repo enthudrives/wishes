@@ -10,10 +10,4 @@ class Wish < ActiveRecord::Base
   def rank
     self.votes.count
   end
-
-  private
-
-  after_initialize do |wish|
-    wish.rank = 0
-  end
 end

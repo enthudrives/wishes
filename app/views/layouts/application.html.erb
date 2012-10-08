@@ -8,6 +8,10 @@
 </head>
 <body>
 
+<%= flash[:notice] if flash[:notice] %>
+
+<%= link_to 'Sign In with Github', '/auth/github' %>
+
 <%= yield %>
 
 </body>
