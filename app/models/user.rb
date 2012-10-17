@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
     wishes_left > 0
   end
 
-  def has_voted?(wish)
+  def has_voted_for?(wish)
     votes.exists?(wish_id: wish.id)
   end
 end

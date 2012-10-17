@@ -5,7 +5,7 @@ by <%= @wish.author_name %>
 
 <% if signed_in? %>
   <span class="vote">
-  <% if current_user.has_voted?(@wish) %>
+  <% if current_user.has_voted_for?(@wish) %>
     <%= link_to 'Unvote', unvote_wish_path, remote: true %>
   <% else %>
     <%= link_to "Vote", vote_wish_path, remote: true %>
