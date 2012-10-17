@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008211517) do
+ActiveRecord::Schema.define(:version => 20121009161523) do
 
   create_table "recommendations", :force => true do |t|
     t.integer "wish_id"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(:version => 20121008211517) do
     t.string "provider"
   end
 
+  add_index "users", ["uid"], :name => "by_uid", :unique => true
+
   create_table "votes", :force => true do |t|
     t.integer "user_id", :null => false
     t.integer "wish_id", :null => false
@@ -36,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20121008211517) do
   add_index "votes", ["user_id", "wish_id"], :name => "index_votes_on_user_id_and_wish_id"
 
   create_table "wishes", :force => true do |t|
-    t.text    "content", :null => false
+    t.string  "content", :null => false
     t.integer "rank"
     t.integer "user_id", :null => false
   end

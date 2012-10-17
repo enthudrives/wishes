@@ -1,0 +1,17 @@
+<h3>New Wish</h3>
+
+<%= flash[:error] if flash[:error] %>
+
+<% if @wish.errors.any? %>
+  <% @wish.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+  <% end %>
+<% end %>
+
+<%= form_for @wish do |f| %>
+  <%= f.text_field :content, placeholder: 'ex. JSON parser and object serializer' %>
+  <%= f.submit "Make the wish!" %>
+<% end %>
+
+<span id="char-label">Characters to go</span>: <span id="chars">10</span>
+

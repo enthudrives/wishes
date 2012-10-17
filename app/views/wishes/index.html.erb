@@ -1,1 +1,10 @@
-index
+<h1>Viewing all wishes</h1>
+
+<ul>
+  <% @wishes.each do |wish| %>
+    <li>
+      <p><%= link_to wish.content, wish %></p>
+      by <%= wish.author_name %>
+    </li>
+  <% end %>
+</ul>

@@ -9,7 +9,7 @@ describe Vote do
   it { should_not allow_mass_assignment_of :user_id }
 
   it "is a unique vote" do
-    create(:vote)
-    build(:vote).should_not be_valid
+    create(:vote, user_id: 1, wish_id: 1)
+    build(:vote, user_id: 1, wish_id: 1).should_not be_valid
   end
 end

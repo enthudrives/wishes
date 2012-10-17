@@ -1,1 +1,16 @@
 <p><%= @wish.content %></p>
+by <%= @wish.author_name %>
+
+<p>Rank: <span class="rank"><%= @wish.rank %></span></p>
+
+<% if signed_in? %>
+  <span class="vote">
+  <% if current_user.has_voted?(@wish) %>
+    <%= link_to 'Unvote', unvote_wish_path, remote: true %>
+  <% else %>
+    <%= link_to "Vote", vote_wish_path, remote: true %>
+  <% end %>
+  </span>
+<% else %>
+  Log in to vote
+<% end %>

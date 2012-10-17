@@ -5,8 +5,11 @@ describe User do
   it { should have_many :recommendations }
   it { should have_many :votes }
 
-  it { should validate_presence_of :name }
-  it { should validate_uniqueness_of :name }
-
-  it { should allow_mass_assignment_of :name }
+  it "cannot have more than 3 wishes" do
+    user = create(:user)
+    create(:wish, user_id: user.id).should be_valid
+    create(:wish, user_id: user.id, content: 'a' * 11).should be_valid
+    create(:wish, user_id: user.id, content: 'y' * 11).should be_valid # fails
+    build(:wish, user_id: user.id, content: 'c' * 11).should_not be_valid
+  end
 end

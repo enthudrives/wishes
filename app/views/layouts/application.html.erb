@@ -8,11 +8,29 @@
 </head>
 <body>
 
-<%= flash[:notice] if flash[:notice] %>
+  <% if signed_in? %>
+    <%= link_to "All Wishes", wishes_path %> | 
+    <%= link_to 'Make a wish', new_wish_path if signed_in? %> | 
+    <%= link_to 'Sign out', signout_path %>
+  <% else %>
+    <%= link_to 'Sign in with Github', '/auth/github' %>
+  <% end %>
 
-<%= link_to 'Sign In with Github', '/auth/github' %>
+  <br />wishes left: <%= current_user.wishes_left if signed_in?%><br />
 
-<%= yield %>
+  <%= "Welcome #{current_user.name} (#{current_user.email})" if signed_in? %>
+
+  <br />
+
+  <em><%= flash[:notice] || nil %></em>
+
+
+
+  <div style="background: #eee"><%= yield %></div>
+
+  <br />
+
+  
 
 </body>
 </html>
