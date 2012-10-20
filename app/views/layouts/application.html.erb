@@ -8,29 +8,45 @@
 </head>
 <body>
 
-  <% if signed_in? %>
-    <%= link_to "All Wishes", wishes_path %> | 
-    <%= link_to 'Make a wish', new_wish_path if signed_in? %> | 
-    <%= link_to 'Sign out', signout_path %>
-  <% else %>
-    <%= link_to 'Sign in with Github', '/auth/github' %>
-  <% end %>
+   <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <%= link_to "Gem Wishes", root_path, class: "brand" %>
+          <div class="nav-collapse collapse">
+              <% if signed_in? %>
+              <ul class="nav">
+                <li><%= link_to "All Wishes", wishes_path %></li>
+                <li><%= link_to 'Make a wish', new_wish_path %></li>
+              </ul>
+              <ul class="nav pull-right">
+                <li><a href="#" style="color:#999">Logged in as <%= current_user.name %></a></li>
+                <li><%= link_to 'Sign out', signout_path %></li>
+              </ul>
+              <% else %>
+                <ul class="nav pull-right">
+                  <li><%= link_to 'Sign in with Github', '/auth/github' %></li>
+                </ul>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <br />wishes left: <%= current_user.wishes_left if signed_in?%><br />
+  <div class="container container-main">
+    <% if signed_in? %>
+      <p><span class="label label-info pull-right">You have <%= pluralize(current_user.wishes_left, 'wish') %> left</span></p>
+    <% end %>
 
-  <%= "Welcome #{current_user.name} (#{current_user.email})" if signed_in? %>
+    <br />
 
-  <br />
+    <%= render 'layouts/flash_message' %>
 
-  <em><%= flash[:notice] || nil %></em>
-
-
-
-  <div style="background: #eee"><%= yield %></div>
-
-  <br />
-
-  
-
+    <%= yield %>
+  </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <p><%= @wish.content %></p>
 by <%= @wish.author_name %>
 
-<p>Rank: <span class="rank"><%= @wish.rank %></span></p>
+<p>Rank: <span class="rank"><%= @wish.rank.to_i %></span></p>
 
 <% if signed_in? %>
   <span class="vote">

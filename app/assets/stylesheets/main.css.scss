@@ -1,3 +1,5 @@
-/* Override variables here */
+.container-main { margin-top: 80px; }
+/* Override before the import */
 
 @import "bootstrap";
+@import "bootstrap-responsive";

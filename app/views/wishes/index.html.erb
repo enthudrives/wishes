@@ -1,10 +1,42 @@
-<h1>Viewing all wishes</h1>
+<div class="hero-unit" style="text-align:center;">
+  <p>It's simple, you can either make a wish for a gem to exist or fulfill someone else's wish
+    by providing the gem.
+  </p>
 
-<ul>
-  <% @wishes.each do |wish| %>
-    <li>
-      <p><%= link_to wish.content, wish %></p>
-      by <%= wish.author_name %>
-    </li>
-  <% end %>
-</ul>
+  <%= link_to "Make a wish", new_wish_path, class: "btn btn-primary btn-large" %>
+  <%= link_to "Browse wishes", wishes_path, class: "btn btn-info btn-large" %>
+</div>
+
+<div class="row">
+  <div class="span4">
+    <div class="page-header">
+      <h1>Latest</h1>
+    </div>
+
+    <ul>
+      <% @latest_wishes.each do |wish| %>
+        <li>
+          <p><%= link_to wish.content, wish %></p>
+          by <%= wish.author_name %>
+          <%= time_ago_in_words(wish.created_at) %> ago
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="span4">
+    <div class="page-header">
+      <h1>Popular</h1>
+    </div>
+
+    <ul>
+      <% @popular_wishes.each do |wish| %>
+        <li>
+          <p><%= link_to wish.content, wish %></p>
+          by <%= wish.author_name %>
+          <%= time_ago_in_words(wish.created_at) %> ago
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

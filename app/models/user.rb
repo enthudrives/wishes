@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   MAX_NO_OF_WISHES = 3
 
   has_many :wishes
-  has_many :recommendations
-  has_many :votes
+  has_many :recommendations, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   def self.from_omniauth(auth)
     find_by_uid(auth["uid"].to_s) || create_from_omniauth(auth)

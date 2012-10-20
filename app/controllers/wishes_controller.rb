@@ -2,7 +2,8 @@ class WishesController < ApplicationController
   before_filter :redirect_if_no_wishes_left, only: :new
 
   def index
-    @wishes = Wish.all
+    @latest_wishes = Wish.latest
+    @popular_wishes = Wish.popular
   end
 
   def show

@@ -14,33 +14,41 @@
 ActiveRecord::Schema.define(:version => 20121009161523) do
 
   create_table "recommendations", :force => true do |t|
-    t.integer "wish_id"
-    t.integer "user_id"
-    t.string  "gem",     :null => false
+    t.integer  "wish_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "gem",        :null => false
   end
 
   add_index "recommendations", ["user_id", "wish_id"], :name => "index_recommendations_on_user_id_and_wish_id"
 
   create_table "users", :force => true do |t|
-    t.string "name",     :null => false
-    t.string "email"
-    t.string "uid"
-    t.string "provider"
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "email"
+    t.string   "uid"
+    t.string   "provider"
   end
 
   add_index "users", ["uid"], :name => "by_uid", :unique => true
 
   create_table "votes", :force => true do |t|
-    t.integer "user_id", :null => false
-    t.integer "wish_id", :null => false
+    t.integer  "user_id",    :null => false
+    t.integer  "wish_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "votes", ["user_id", "wish_id"], :name => "index_votes_on_user_id_and_wish_id"
 
   create_table "wishes", :force => true do |t|
-    t.string  "content", :null => false
-    t.integer "rank"
-    t.integer "user_id", :null => false
+    t.string   "content",    :null => false
+    t.integer  "rank",       :null => false
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "wishes", ["user_id"], :name => "index_wishes_on_user_id"
