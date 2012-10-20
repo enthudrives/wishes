@@ -9,12 +9,10 @@ class Vote < ActiveRecord::Base
   private
 
   before_create do |vote|
-    current_rank = vote.wish.rank
-    vote.wish.update_attribute(:rank, current_rank + 1)
+    vote.wish.increment!(:rank, by = 1)
   end
 
   before_destroy do |vote|
-    current_rank = vote.wish.rank
-    vote.wish.update_attribute(:rank, current_rank - 1)
+    vote.wish.decrement!(:rank, by = 1)
   end
 end
